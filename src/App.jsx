@@ -1,16 +1,14 @@
-import { OrbitControls, useAnimations, useFBX, useGLTF } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
 import React, { useEffect } from 'react'
 import Model from './assets/Model.jsx'
+import Experience from './Experience.jsx'
 
 const App = () => {
   return (
-    <Canvas>
-      <OrbitControls />
-      <directionalLight intensity={2} position={[10, 10, 10]} />
-      <pointLight intensity={2} position={[-10, -10, -10]} />
-      <ambientLight intensity={1} />
-      <Model />
+    <Canvas shadows camera={{ position: [0, 2, 5], fov: 30 }}>
+      <color attach="background" args={['#ececec']} />
+      {/* <Model /> */}
+      <Experience/>
     </Canvas>
   )
 }
