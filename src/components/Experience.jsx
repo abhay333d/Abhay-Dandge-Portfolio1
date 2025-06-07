@@ -6,11 +6,9 @@ import {
   Sky,
 } from "@react-three/drei";
 import React from "react";
-import { Walking } from "./assets/Walking";
-import { Avatar1 } from "./assets/Avatar1.jsx";
-import { Avatar3 } from "./assets/Avatar3.jsx";
+import { Avatar3 } from "../assets/Avatar3.jsx";
 import { useControls } from "leva";
-import { Castle } from "./assets/Castle.jsx";
+import { Castle } from "../assets/Castle.jsx";
 
 const Experience = () => {
   const { animation } = useControls({
@@ -30,9 +28,9 @@ const Experience = () => {
 
   return (
     <>
-      <OrbitControls />
       <Sky />
       <Environment preset="sunset" />
+      {/* <OrbitControls /> */}
       <group position-y={-1}>
         <ContactShadows
           opacity={0.4}
