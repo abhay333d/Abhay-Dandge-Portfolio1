@@ -9,8 +9,10 @@ Title: Stylized Medieval Castle Room
 
 import React from "react";
 import { useGLTF } from "@react-three/drei";
+import { motion } from "framer-motion-3d";
 
 export function Castle(props) {
+  const { section } = props;
   const { nodes, materials } = useGLTF("models/castle.glb");
   return (
     <group {...props} dispose={null}>

@@ -35,7 +35,7 @@ const AboutSection = () => {
       <h1 className="text-6xl font-extrabold leading-snug">
         Hi, I'm
         <br />
-        <span className="bg-white rounded-bl-2xl px-1 italic">
+        <span className="bg-[#ceab1e52] rounded-bl-2xl px-1 italic">
           Abhay Dandge
         </span>
       </h1>
@@ -63,27 +63,89 @@ const AboutSection = () => {
           transition: { duration: 1, delay: 2 },
         }}
       >
-        Contact Me
+        <a
+          href="/Abhay_Dandge_Resume.pdf"
+          download
+          className="flex items-center gap-2"
+        >
+          Download Resume
+        </a>
       </motion.button>
     </Section>
   );
 };
 
 const skills = [
-  { title: "HTML", level: 99 },
-  { title: "CSS", level: 90 },
-  { title: "JavaScript", level: 90 },
-  { title: "React", level: 90 },
-  { title: "Three.js", level: 85 },
-  { title: "React Three Fiber", level: 80 },
-  { title: "MongoDB", level: 80 },
-  { title: "Express.js", level: 80 },
-  { title: "Node.js", level: 90 },
-  { title: "Tailwind CSS", level: 90 },
-  { title: "Next.js", level: 80 },
-  { title: "Git", level: 85 },
-  { title: "GitHub", level: 85 },
-  { title: "Blender", level: 50 },
+  {
+    title: "HTML",
+    level: 99,
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+  },
+  {
+    title: "CSS",
+    level: 90,
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+  },
+  {
+    title: "JavaScript",
+    level: 90,
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+  },
+  {
+    title: "React",
+    level: 90,
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+  },
+  {
+    title: "Three.js",
+    level: 85,
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/threejs/threejs-original.svg",
+  },
+  {
+    title: "React Three Fiber",
+    level: 80,
+    logo: "https://raw.githubusercontent.com/pmndrs/branding/main/r3f/logo.svg",
+  },
+  {
+    title: "MongoDB",
+    level: 80,
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+  },
+  {
+    title: "Express.js",
+    level: 80,
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+  },
+  {
+    title: "Node.js",
+    level: 90,
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+  },
+  {
+    title: "Tailwind CSS",
+    level: 90,
+    logo: "https://www.svgrepo.com/show/374118/tailwind.svg",
+  },
+  {
+    title: "Next.js",
+    level: 80,
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+  },
+  {
+    title: "Git",
+    level: 85,
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+  },
+  {
+    title: "GitHub",
+    level: 85,
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+  },
+  {
+    title: "Blender",
+    level: 50,
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/blender/blender-original.svg",
+  },
 ];
 
 const languages = [
@@ -98,27 +160,68 @@ const SkillsSection = () => {
   const mid = Math.ceil(skills.length / 2);
   const skillsColumns = [skills.slice(0, mid), skills.slice(mid)];
 
+  // Fix broken React Three Fiber logo
+  const fixedSkills = skills.map((skill) =>
+    skill.title === "React Three Fiber"
+      ? {
+          ...skill,
+          logo: "https://raw.githubusercontent.com/pmndrs/branding/main/r3f/logo-vertical.svg",
+        }
+      : skill
+  );
+  const midFixed = Math.ceil(fixedSkills.length / 2);
+  const skillsColumnsFixed = [
+    fixedSkills
+      .map((skill) =>
+        skill.title === "React Three Fiber"
+          ? {
+              ...skill,
+              logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/threejs/threejs-original.svg",
+            }
+          : skill
+      )
+      .slice(0, midFixed),
+    fixedSkills
+      .map((skill) =>
+        skill.title === "React Three Fiber"
+          ? {
+              ...skill,
+              logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/threejs/threejs-original.svg",
+            }
+          : skill
+      )
+      .slice(midFixed),
+  ];
+
   return (
     <Section>
       <motion.div whileInView={"visible"}>
         <h2 className="text-4xl font-bold">Skills</h2>
         <div className="mt-8 flex gap-8">
-          {skillsColumns.map((column, colIdx) => (
+          {skillsColumnsFixed.map((column, colIdx) => (
             <div key={colIdx} className="space-y-4">
               {column.map((skill, index) => (
                 <div key={skill.title} className="w-64">
-                  <motion.h3
-                    className="text-l font-bold text-gray-800"
-                    initial={{ opacity: 0 }}
-                    variants={{
-                      visible: {
-                        opacity: 1,
-                        transition: { duration: 1, delay: 1 + index * 0.2 },
-                      },
-                    }}
-                  >
-                    {skill.title}
-                  </motion.h3>
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={skill.logo}
+                      alt={`${skill.title} logo`}
+                      className="w-7 h-7 bg-white rounded p-1 border border-gray-200"
+                      style={{ objectFit: "contain" }}
+                    />
+                    <motion.h3
+                      className="text-l font-bold text-gray-800"
+                      initial={{ opacity: 0 }}
+                      variants={{
+                        visible: {
+                          opacity: 1,
+                          transition: { duration: 1, delay: 1 + index * 0.2 },
+                        },
+                      }}
+                    >
+                      {skill.title}
+                    </motion.h3>
+                  </div>
                   <div className="w-full bg-gray-200 rounded-full h-2 dark:bg-gray-700 mt-2">
                     <motion.div
                       className="bg-[#cea51ec3] h-full rounded-full"
@@ -137,47 +240,47 @@ const SkillsSection = () => {
             </div>
           ))}
         </div>
-        <div>
-          <h2 className="text-4xl font-bold mt-8">Languages</h2>
-          <div className="mt-8 space-y-4">
-            {languages.map((language, index) => (
-              <div key={language.title} className="w-64">
-                <motion.div
-                  className="flex items-center gap-2"
-                  initial={{ opacity: 0 }}
-                  variants={{
-                    visible: {
-                      opacity: 1,
-                      transition: { duration: 1, delay: 2 + index * 0.2 },
-                    },
-                  }}
-                >
-                  <img
-                    src={language.flag}
-                    alt={`${language.title} flag`}
-                    className="w-6 h-4 rounded-sm object-cover"
-                  />
-                  <h3 className="text-xl font-bold text-gray-800">
-                    {language.title}
-                  </h3>
-                </motion.div>
-                <div className="w-full bg-gray-200 rounded-full h-2 dark:bg-gray-700 mt-2">
-                  <motion.div
-                    className="bg-[#cea51ec3] h-full rounded-full"
-                    style={{ width: `${language.level}%` }}
-                    initial={{ scaleX: 0, originX: 0 }}
-                    variants={{
-                      visible: {
-                        scaleX: 1,
-                        transition: { duration: 1, delay: 2 + index * 0.2 },
-                      },
-                    }}
-                  ></motion.div>
+        {/* <div>
+                <h2 className="text-4xl font-bold mt-8">Languages</h2>
+                <div className="mt-8 space-y-4">
+                    {languages.map((language, index) => (
+                        <div key={language.title} className="w-64">
+                            <motion.div
+                                className="flex items-center gap-2"
+                                initial={{ opacity: 0 }}
+                                variants={{
+                                    visible: {
+                                        opacity: 1,
+                                        transition: { duration: 1, delay: 2 + index * 0.2 },
+                                    },
+                                }}
+                            >
+                                <img
+                                    src={language.flag}
+                                    alt={`${language.title} flag`}
+                                    className="w-6 h-4 rounded-sm object-cover"
+                                />
+                                <h3 className="text-xl font-bold text-gray-800">
+                                    {language.title}
+                                </h3>
+                            </motion.div>
+                            <div className="w-full bg-gray-200 rounded-full h-2 dark:bg-gray-700 mt-2">
+                                <motion.div
+                                    className="bg-[#cea51ec3] h-full rounded-full"
+                                    style={{ width: `${language.level}%` }}
+                                    initial={{ scaleX: 0, originX: 0 }}
+                                    variants={{
+                                        visible: {
+                                            scaleX: 1,
+                                            transition: { duration: 1, delay: 2 + index * 0.2 },
+                                        },
+                                    }}
+                                ></motion.div>
+                            </div>
+                        </div>
+                    ))}
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
+            </div> */}
       </motion.div>
     </Section>
   );
