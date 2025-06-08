@@ -16,15 +16,7 @@ const Experience = (props) => {
   const { animation } = useControls({
     animation: {
       value: "Sitting",
-      options: [
-        "Sitting",
-        "Standing",
-        "StartWalking",
-        "Walking",
-        "StopWalking",
-        "Falling",
-        "FallingRolling",
-      ],
+      options: ["Sitting", "Falling", "FallingRolling"],
     },
   });
 
@@ -34,11 +26,11 @@ const Experience = (props) => {
       <Environment preset="sunset" />
       {/* <OrbitControls /> */}
       <motion.group
-        position={[1, 1.15, 3]}
-        scale={0.3}
-        rotation-y={Math.PI / 6}
+        position={[0.4, 1, 3]}
+        scale={0.38}
+        rotation-y={Math.PI / 6 * 0.4}
         animate={{
-          y: section === 0 ? 1.15 : 0.9,
+          y: section === 0 ? 1 : 0.9,
         }}
       >
         <ContactShadows
@@ -49,20 +41,6 @@ const Experience = (props) => {
           resolution={256}
           color={"black"}
         />
-
-        {/* <Walking /> */}
-        {/* <Avatar1 /> */}
-        <Avatar3
-          animation={animation}
-          position={
-            animation === "Standing" ||
-            animation === "Walking" ||
-            animation === "StartWalking" ||
-            animation === "StopWalking"
-              ? [0.3, 0, 0.5]
-              : [0.3, 0, -0.8]
-          }
-        />
         <Castle
           scale={0.004}
           position={[0, 0, -2]}
@@ -70,17 +48,12 @@ const Experience = (props) => {
           section={section}
         />
 
-        {/* {animation === "Sitting" && (
-          <mesh scale={[0.8, 0.8, 0.8]} position={[0, 0.37, -0.3]}>
-            <boxGeometry />
-            <meshStandardMaterial color="White" />
-          </mesh>
-        )} */}
+        {/* Skills */}
 
-        {/* <mesh scale={5} rotation-x={-Math.PI / 2} position-y={-0.0001}>
-          <planeGeometry />
-          <meshStandardMaterial color="White" />
-        </mesh> */}
+        
+
+        <Avatar3 animation={animation} />
+
       </motion.group>
     </>
   );

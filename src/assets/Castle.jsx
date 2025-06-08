@@ -10,16 +10,17 @@ Title: Stylized Medieval Castle Room
 import React from "react";
 import { useGLTF } from "@react-three/drei";
 import { motion } from "framer-motion-3d";
-
+import { scale } from "framer-motion";
 export function Castle(props) {
   const { section } = props;
   const { nodes, materials } = useGLTF("models/castle.glb");
   return (
     <group {...props} dispose={null}>
-      <group
+      <motion.group
         position={[194.259, 507.866, 145.109]}
         rotation={[-Math.PI / 2, 0, 0]}
-        scale={100}
+        scale={50}
+        animate={{ scale: section === 0 ? 100 : 0 }}
       >
         <mesh
           geometry={nodes.Cylinder011_glass_0.geometry}
@@ -29,11 +30,12 @@ export function Castle(props) {
           geometry={nodes.Cylinder011_stuff_0.geometry}
           material={materials.stuff}
         />
-      </group>
-      <group
+      </motion.group>
+      <motion.group
         position={[194.259, 499.839, 267.249]}
         rotation={[3.128, -1.203, -0.013]}
-        scale={100}
+        scale={50}
+        animate={{ scale: section === 0 ? 100 : 0 }}
       >
         <mesh
           geometry={nodes.Cylinder014_glass_0.geometry}
@@ -43,11 +45,12 @@ export function Castle(props) {
           geometry={nodes.Cylinder014_stuff_0.geometry}
           material={materials.stuff}
         />
-      </group>
-      <group
+      </motion.group>
+      <motion.group
         position={[194.259, 501.105, 192.524]}
         rotation={[-Math.PI / 2, 0, 0]}
-        scale={100}
+        scale={50}
+        animate={{ scale: section === 0 ? 100 : 0 }}
       >
         <mesh
           geometry={nodes.Cylinder018_glass_0.geometry}
@@ -57,11 +60,12 @@ export function Castle(props) {
           geometry={nodes.Cylinder018_stuff_0.geometry}
           material={materials.stuff}
         />
-      </group>
-      <group
+      </motion.group>
+      <motion.group
         position={[194.259, 516.839, 388.276]}
         rotation={[-Math.PI / 2, 0, 0]}
-        scale={100}
+        scale={50}
+        animate={{ scale: section === 0 ? 100 : 0 }}
       >
         <mesh
           geometry={nodes.Cylinder019_glass_0.geometry}
@@ -71,11 +75,12 @@ export function Castle(props) {
           geometry={nodes.Cylinder019_stuff_0.geometry}
           material={materials.stuff}
         />
-      </group>
-      <group
+      </motion.group>
+      <motion.group
         position={[194.259, 516.839, 447.695]}
         rotation={[-Math.PI / 2, 0, 0]}
-        scale={100}
+        scale={50}
+        animate={{ scale: section === 0 ? 100 : 0 }}
       >
         <mesh
           geometry={nodes.Cylinder020_glass_0.geometry}
@@ -85,11 +90,12 @@ export function Castle(props) {
           geometry={nodes.Cylinder020_stuff_0.geometry}
           material={materials.stuff}
         />
-      </group>
-      <group
+      </motion.group>
+      <motion.group
         position={[-383.636, 177.263, 923.051]}
         rotation={[-Math.PI / 2, 0, 2.845]}
-        scale={100}
+        scale={50}
+        animate={{ scale: section === 0 ? 100 : 0 }}
       >
         <mesh
           geometry={nodes.Cylinder029_glass_0.geometry}
@@ -99,11 +105,12 @@ export function Castle(props) {
           geometry={nodes.Cylinder029_stuff_0.geometry}
           material={materials.stuff}
         />
-      </group>
-      <group
+      </motion.group>
+      <motion.group
         position={[-635.749, 177.263, 832.266]}
         rotation={[-Math.PI / 2, 0, 0]}
-        scale={100}
+        scale={50}
+        animate={{ scale: section === 0 ? 100 : 0 }}
       >
         <mesh
           geometry={nodes.Cylinder030_glass_0.geometry}
@@ -113,7 +120,7 @@ export function Castle(props) {
           geometry={nodes.Cylinder030_stuff_0.geometry}
           material={materials.stuff}
         />
-      </group>
+      </motion.group>
       <mesh
         geometry={nodes.Cylinder_stuff_0.geometry}
         material={materials.stuff}
@@ -2081,6 +2088,7 @@ export function Castle(props) {
         rotation={[-Math.PI / 2, 0, -0.092]}
         scale={100}
       />
+
       <mesh
         geometry={nodes.tableSmall_table_0.geometry}
         material={materials.table}
@@ -2088,6 +2096,7 @@ export function Castle(props) {
         rotation={[-Math.PI / 2, 0, 1.597]}
         scale={100}
       />
+
       <mesh
         geometry={nodes.chestBottom_chest_0.geometry}
         material={materials.chest}

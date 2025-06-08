@@ -21,31 +21,15 @@ export function Avatar3({ animation, ...props }) {
   const { nodes, materials } = useGraph(clone);
 
   const { animations: Sitting } = useFBX("fbx/animations/Sitting.fbx");
-  const { animations: Idle } = useFBX("fbx/animations/Idle.fbx");
-  const { animations: StartWalk } = useFBX("fbx/animations/Start_Walking.fbx");
-  const { animations: Walking } = useFBX("fbx/animations/Walking.fbx");
-  const { animations: StopWalk } = useFBX("fbx/animations/Stop_Walking.fbx");
   const { animations: Falling } = useFBX("fbx/animations/Falling Idle.fbx");
   const { animations: FallRoll } = useFBX("fbx/animations/Falling_To_Roll.fbx");
 
   Sitting[0].name = "Sitting";
-  Idle[0].name = "Idle";
-  StartWalk[0].name = "StartWalking";
-  Walking[0].name = "Walking";
-  StopWalk[0].name = "StopWalking";
   Falling[0].name = "Falling";
   FallRoll[0].name = "FallingRolling";
 
   const { actions } = useAnimations(
-    [
-      Sitting[0],
-      Idle[0],
-      StartWalk[0],
-      Walking[0],
-      StopWalk[0],
-      Falling[0],
-      FallRoll[0],
-    ],
+    [Sitting[0], Falling[0], FallRoll[0]],
     group
   );
 
@@ -90,7 +74,13 @@ export function Avatar3({ animation, ...props }) {
   }, [WireFrame, materials]);
 
   return (
-    <group {...props} ref={group} dispose={null} rotation-x={-Math.PI / 2}>
+    <group
+      {...props}
+      ref={group}
+      dispose={null}
+      rotation-x={-Math.PI / 2}
+      position={[0.3, 0.02, -0.8]}
+    >
       <primitive object={nodes.Hips} />
       <skinnedMesh
         name="Wolf3D_Avatar"
