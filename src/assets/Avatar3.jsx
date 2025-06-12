@@ -21,41 +21,47 @@ export function Avatar3({ animation, ...props }) {
   const { nodes, materials } = useGraph(clone);
 
   const { animations: Sitting } = useFBX("fbx/animations/Sitting.fbx");
-  const { animations: Falling } = useFBX("fbx/animations/Falling Idle.fbx");
+  const { animations: Falling } = useFBX("fbx/animations/Falling_Idle.fbx");
   const { animations: FallRoll } = useFBX("fbx/animations/Falling_To_Roll.fbx");
+  const { animations: Standing } = useFBX("fbx/animations/Happy_Idle.fbx");
 
   Sitting[0].name = "Sitting";
   Falling[0].name = "Falling";
   FallRoll[0].name = "FallingRolling";
+  Standing[0].name = "Standing";
 
   const { actions } = useAnimations(
-    [Sitting[0], Falling[0], FallRoll[0]],
+    [Sitting[0], Falling[0], FallRoll[0], Standing[0]],
     group
   );
 
   useFrame((state) => {
-    const neck = group.current?.getObjectByName("Neck");
-    if (!neck) return;
+    const targetBone =
+      props.headFollowCursor && CursorFollow
+        ? group.current?.getObjectByName("Head")
+        : group.current?.getObjectByName("Neck");
+    if (!targetBone) return;
 
     if (CursorFollow) {
       // Update ray from camera & pointer
       raycaster.current.setFromCamera(state.pointer, state.camera);
 
       // Position plane relative to the avatar
-      const neckWorld = new THREE.Vector3();
-      neck.getWorldPosition(neckWorld);
+      const boneWorld = new THREE.Vector3();
+      targetBone.getWorldPosition(boneWorld);
       plane.current.setFromNormalAndCoplanarPoint(
         new THREE.Vector3(0, 0, 1).applyQuaternion(state.camera.quaternion),
-        neckWorld.clone().add(new THREE.Vector3(0, 0, 1)) // 1 unit ahead
+        boneWorld.clone().add(new THREE.Vector3(0, 0, 1)) // 1 unit ahead
       );
 
+      // Define intersection before using it!
       const intersection = new THREE.Vector3();
       raycaster.current.ray.intersectPlane(plane.current, intersection);
-      if (intersection) neck.lookAt(intersection);
+      if (intersection) targetBone.lookAt(intersection);
     }
 
     if (HeadFollow && !CursorFollow) {
-      neck.lookAt(state.camera.position);
+      targetBone.lookAt(state.camera.position);
     }
   });
 
@@ -79,7 +85,7 @@ export function Avatar3({ animation, ...props }) {
       ref={group}
       dispose={null}
       rotation-x={-Math.PI / 2}
-      position={[0.3, 0.02, -0.8]}
+      // position={[0.3, 0.02, -0.8]}
     >
       <primitive object={nodes.Hips} />
       <skinnedMesh

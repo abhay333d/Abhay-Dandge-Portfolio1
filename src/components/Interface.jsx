@@ -196,7 +196,7 @@ const SkillsSection = () => {
   return (
     <Section>
       <motion.div whileInView={"visible"}>
-        <h2 className="text-4xl font-bold">Skills</h2>
+        <h2 className="text-4xl font-bold text-amber-300 hover:underline transition-all ">Skills</h2>
         <div className="mt-8 flex gap-8">
           {skillsColumnsFixed.map((column, colIdx) => (
             <div key={colIdx} className="space-y-4">
@@ -210,7 +210,7 @@ const SkillsSection = () => {
                       style={{ objectFit: "contain" }}
                     />
                     <motion.h3
-                      className="text-l font-bold text-gray-800"
+                      className="text-l font-bold text-white"
                       initial={{ opacity: 0 }}
                       variants={{
                         visible: {

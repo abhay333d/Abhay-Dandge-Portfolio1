@@ -17,34 +17,24 @@ const App = () => {
 
   return (
     <>
-      <MotionConfig
-        transition={{
-          type: "spring",
-          stiffness: 500,
-          damping: 15,
-          mass: 5,
-          restDelta: 0.0001,
-        }}
-      >
-        <Canvas shadows camera={{ position: [1, 2, 5], fov: 40 }}>
-          <color attach="background" args={["#ececec"]} />
-          {/* <Model /> */}
-          <ScrollControls pages={4} damping={0.1}>
-            <ScrollMannager section={section} onSectionChange={setSection} />
-            <Scroll>
-              <Experience section={section} />
-            </Scroll>
-            <Scroll html>
-              <Interface />
-            </Scroll>
-          </ScrollControls>
-        </Canvas>
-        <Menu
-          onSectionChange={setSection}
-          menuOpen={menuOpen}
-          setMenuOpen={setMenuOpen}
-        />
-      </MotionConfig>
+      <Canvas shadows camera={{ position: [1, 2, 5], fov: 40 }}>
+        <color attach="background" args={["#ececec"]} />
+        {/* <Model /> */}
+        <ScrollControls pages={4} damping={0.1}>
+          <ScrollMannager section={section} onSectionChange={setSection} />
+          <Scroll>
+            <Experience section={section} />
+          </Scroll>
+          <Scroll html>
+            <Interface />
+          </Scroll>
+        </ScrollControls>
+      </Canvas>
+      <Menu
+        onSectionChange={setSection}
+        menuOpen={menuOpen}
+        setMenuOpen={setMenuOpen}
+      />
     </>
   );
 };
