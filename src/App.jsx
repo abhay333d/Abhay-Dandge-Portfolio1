@@ -23,7 +23,7 @@ const App = () => {
         <ScrollControls pages={4} damping={0.1}>
           <ScrollMannager section={section} onSectionChange={setSection} />
           <Scroll>
-            <Experience section={section} />
+            <Experience section={section} menuOpen={menuOpen} />
           </Scroll>
           <Scroll html>
             <Interface />

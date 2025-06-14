@@ -8,17 +8,34 @@ import {
   Plane,
   Sky,
   Sparkles,
+  useMotion,
 } from "@react-three/drei";
 import React, { useEffect, useState, useRef } from "react";
 import { Avatar3 } from "../assets/Avatar3.jsx";
 import { useControls } from "leva";
 import { Castle } from "../assets/Castle.jsx";
 import { motion } from "framer-motion-3d";
-import { useThree } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
+import { animate, useMotionValue } from "framer-motion";
+import { menu } from "framer-motion/client";
+import { framerMotionConfig } from "../config.js";
 
 const Experience = (props) => {
-  const { section } = props;
+  const { section, menuOpen } = props;
   const { viewport } = useThree();
+
+  const cameraPositionX = useMotionValue();
+  const cameraLookAtX = useMotionValue();
+
+  useEffect(() => {
+    animate(cameraPositionX, menuOpen ? -1 : 1, { ...framerMotionConfig });
+    animate(cameraLookAtX, menuOpen ? 3 : 0, { ...framerMotionConfig });
+  }, [menuOpen]);
+
+  useFrame((state) => {
+    state.camera.position.x = cameraPositionX.get();
+    state.camera.lookAt(cameraLookAtX.get(), 0, 0);
+  });
 
   // Main Avatar animation controller via Leva
   const { animation } = useControls({
@@ -132,7 +149,7 @@ const Experience = (props) => {
           color={"#cea51e"}
         />
 
-        <group position={[1.5, -0.1, -2]}  >
+        <group position={[1.5, -0.1, -2]}>
           <Avatar3
             animation={skillsAnimation}
             // Change position and scale when animation is "Standing"
