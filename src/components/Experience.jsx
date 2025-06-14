@@ -3,12 +3,10 @@ import {
   Environment,
   Float,
   MeshDistortMaterial,
-  MeshWobbleMaterial,
   OrbitControls,
-  Plane,
   Sky,
   Sparkles,
-  useMotion,
+  useScroll,
 } from "@react-three/drei";
 import React, { useEffect, useState, useRef } from "react";
 import { Avatar3 } from "../assets/Avatar3.jsx";
@@ -16,13 +14,16 @@ import { useControls } from "leva";
 import { Castle } from "../assets/Castle.jsx";
 import { motion } from "framer-motion-3d";
 import { useFrame, useThree } from "@react-three/fiber";
-import { animate, useMotionValue } from "framer-motion";
-import { menu } from "framer-motion/client";
+import { animate, scale, useMotionValue } from "framer-motion";
 import { framerMotionConfig } from "../config.js";
+import * as THREE from "three";
 
 const Experience = (props) => {
-  const { section, menuOpen } = props;
+  const { menuOpen } = props;
   const { viewport } = useThree();
+  const data = useScroll();
+
+  const [section, setSection] = useState(0);
 
   const cameraPositionX = useMotionValue();
   const cameraLookAtX = useMotionValue();
@@ -32,42 +33,114 @@ const Experience = (props) => {
     animate(cameraLookAtX, menuOpen ? 3 : 0, { ...framerMotionConfig });
   }, [menuOpen]);
 
+  const characterContainerAboutRef = useRef();
+
   useFrame((state) => {
+    const currentSection = Math.floor(data.scroll.current * data.pages);
+
+    if (currentSection !== section) {
+      setSection(currentSection);
+    }
+
     state.camera.position.x = cameraPositionX.get();
     state.camera.lookAt(cameraLookAtX.get(), 0, 0);
+
+    const position = new THREE.Vector3();
+    characterContainerAboutRef.current.getWorldPosition(position);
   });
 
-  // Main Avatar animation controller via Leva
-  const { animation } = useControls({
-    animation: {
-      value: "Sitting",
-      options: ["Sitting", "Falling", "FallingRolling", "Standing"],
-    },
-  });
+  // const { animation } = useControls({
+  //   animation: {
+  //     value: "Sitting",
+  //     options: ["Sitting", "Falling", "FallingRolling", "Standing"],
+  //   },
+  // });
 
-  // Skills section Avatar animation state
   const [skillsAnimation, setSkillsAnimation] = useState("Falling");
+  const [section2Animation, setSection2Animation] = useState("Standing");
   const prevSection = useRef(section);
 
   useEffect(() => {
-    // Entering skills section
     if (section === 1 && prevSection.current !== 1) {
       setSkillsAnimation("FallingRolling");
       const timer = setTimeout(() => {
         setSkillsAnimation("Standing");
       }, 1900);
-      prevSection.current = section;
-      return () => clearTimeout(timer);
     }
-    // Leaving skills section (to section 0)
+
     if (section === 0 && prevSection.current === 1) {
       setSkillsAnimation("Falling");
     }
+
+    if (section === 2 && prevSection.current !== 2) {
+      setSection2Animation("FallingRolling");
+      const timer = setTimeout(() => {
+        setSection2Animation("Standing");
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+
     prevSection.current = section;
   }, [section]);
 
   return (
     <>
+      <motion.group
+        position={[0.47, 0.985, 2.7]}
+        animate={"" + section}
+        // headFollowCursor={true}
+        // transition={{ duration: 0.6 }}
+        transition={{ duration: 0.2 }}
+        rotation={[-0, 0.20943951023931948, -0]}
+        variants={{
+          0: {
+            scaleX: 0.4,
+            scaleY: 0.4,
+            scaleZ: 0.4,
+            headFollowCursor: false,
+          },
+          1: {
+            y: -viewport.height + 0.4,
+            x: 1,
+            z: skillsAnimation === "FallingRolling" ? 0 : 2.8,
+            rotateX: 0,
+            rotateY: 0,
+            rotateZ: 0,
+            scale: skillsAnimation === "Standing" ? 0.7 : 0.7,
+            headFollowCursor: true,
+          },
+          2: {
+            x: -2,
+            y: -viewport.height * 2 + 0.5,
+            z: 0,
+            rotateX: 0,
+            rotateY: Math.PI / 2,
+            rotateZ: 0,
+            scale: 0.6,
+          },
+          3: {
+            y: -viewport.height * 3.2,
+            x: 1.5,
+            z: 1,
+            rotateX: 0,
+            rotateY: -Math.PI / 6,
+            rotateZ: 0,
+            scale: 1.2,
+          },
+        }}
+      >
+        <Avatar3
+          animation={
+            section === 0
+              ? "Sitting"
+              : section === 1
+              ? skillsAnimation
+              : "Standing"
+          }
+          headFollowCursor={section !== 2}
+        />
+      </motion.group>
+
       <Sky
         scale={[20, 30, 4]}
         position-z={1.5}
@@ -80,16 +153,13 @@ const Experience = (props) => {
       />
 
       <Environment preset="sunset" />
-      {/* <OrbitControls /> */}
 
-      {/* Main Avatar and Castle section */}
       <motion.group
+        ref={characterContainerAboutRef}
         position={[0.4, 1, 3]}
         scale={0.38}
         rotation-y={(Math.PI / 6) * 0.4}
-        animate={{
-          y: section === 0 ? 1 : 0.9,
-        }}
+        animate={{ y: section === 0 ? 1 : 0.9 }}
       >
         <Sparkles
           size={4}
@@ -112,7 +182,6 @@ const Experience = (props) => {
           rotation-y={0.5}
           section={section}
         />
-        <Avatar3 position={[0.3, 0.02, -0.8]} animation={animation} />
       </motion.group>
 
       {/* Skills Section */}
@@ -127,20 +196,6 @@ const Experience = (props) => {
       >
         <directionalLight position={[-5, 3, 5]} intensity={0.4} />
 
-        {/* Optional floating meshes can be re-enabled here */}
-        {/* <Float>
-          <mesh position={[1, -3, -15]} scale={2}>
-            <sphereGeometry />
-            <MeshDistortMaterial
-              opacity={0.8}
-              transparent
-              distort={0.4}
-              speed={4}
-              color={"red"}
-            />
-          </mesh>
-        </Float> */}
-
         <Sparkles
           size={4}
           count={80}
@@ -149,17 +204,34 @@ const Experience = (props) => {
           color={"#cea51e"}
         />
 
-        <group position={[1.5, -0.1, -2]}>
+        {/* <group position={[1.5, -0.1, -2]}>
           <Avatar3
             animation={skillsAnimation}
-            // Change position and scale when animation is "Standing"
             position={
               skillsAnimation === "Standing" ? [0.5, -2.3, 0] : [0, 0, 0]
             }
             scale={skillsAnimation === "Standing" ? 2 : 1}
             headFollowCursor={true}
           />
-        </group>
+        </group> */}
+      </motion.group>
+
+      {/* Section 2 Avatar (e.g. Projects or Contact Section) */}
+      <motion.group
+        section={section}
+        position={[0, -1.5, -20]}
+        animate={{
+          x: section === 2 ? 0 : viewport.width,
+          y: section === 2 ? -viewport.height * 1.9 : -10,
+          z: 0,
+        }}
+      >
+        {/* <Avatar3
+          animation={section2Animation}
+          position={[0.5, -2.5, 0]}
+          scale={section2Animation === "Standing" ? 2 : 1}
+          headFollowCursor={true}
+        /> */}
       </motion.group>
     </>
   );

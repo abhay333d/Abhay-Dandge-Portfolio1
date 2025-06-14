@@ -6,13 +6,17 @@ import { useControls } from "leva";
 import * as THREE from "three";
 
 export function Avatar3({ animation, ...props }) {
-  const { HeadFollow, CursorFollow, WireFrame } = useControls({
-    HeadFollow: false,
-    CursorFollow: false,
-    WireFrame: false,
-  });
+  // const { HeadFollow, CursorFollow, WireFrame } = useControls({
+  //   HeadFollow: false,
+  //   CursorFollow: true,
+  //   WireFrame: false,
+  // });
 
   const group = useRef();
+  // Remove useControls and hardcode the values
+  const HeadFollow = false;
+  const CursorFollow = true;
+  const WireFrame = false;
   const raycaster = useRef(new THREE.Raycaster());
   const plane = useRef(new THREE.Plane(new THREE.Vector3(0, 0, 1), -1)); // plane 1 unit in front
 
@@ -42,19 +46,18 @@ export function Avatar3({ animation, ...props }) {
         : group.current?.getObjectByName("Neck");
     if (!targetBone) return;
 
+    if (animation === "FallingRolling") return;
+
     if (CursorFollow) {
-      // Update ray from camera & pointer
       raycaster.current.setFromCamera(state.pointer, state.camera);
 
-      // Position plane relative to the avatar
       const boneWorld = new THREE.Vector3();
       targetBone.getWorldPosition(boneWorld);
       plane.current.setFromNormalAndCoplanarPoint(
         new THREE.Vector3(0, 0, 1).applyQuaternion(state.camera.quaternion),
-        boneWorld.clone().add(new THREE.Vector3(0, 0, 1)) // 1 unit ahead
+        boneWorld.clone().add(new THREE.Vector3(0, 0, 1))
       );
 
-      // Define intersection before using it!
       const intersection = new THREE.Vector3();
       raycaster.current.ray.intersectPlane(plane.current, intersection);
       if (intersection) targetBone.lookAt(intersection);

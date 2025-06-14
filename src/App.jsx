@@ -6,6 +6,7 @@ import Interface from "./components/Interface.jsx";
 import ScrollMannager from "./components/ScrollMannager.jsx";
 import Menu from "./components/Menu.jsx";
 import { MotionConfig } from "framer-motion";
+import { Cursor } from "./components/Cursor.jsx";
 
 const App = () => {
   const [section, setSection] = useState(0);
@@ -35,6 +36,7 @@ const App = () => {
         menuOpen={menuOpen}
         setMenuOpen={setMenuOpen}
       />
+      <Cursor />
     </>
   );
 };

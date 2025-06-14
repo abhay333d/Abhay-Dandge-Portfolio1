@@ -295,7 +295,7 @@ const ProjectsSection = () => {
 const ContactSection = () => {
   return (
     <Section>
-      <div className="w-full max-w-lg bg-white/80 rounded-2xl shadow-xl p-10 flex flex-col gap-6">
+      <div className="w-full max-w-lg bg-[#ffffff37] rounded-2xl shadow-xl p-10 flex flex-col gap-6">
         <h2 className="text-4xl font-bold mb-2 text-[#cea51e]">Contact Me</h2>
         <p className="text-gray-600 mb-4">
           Interested in working together or have a question? <br />
