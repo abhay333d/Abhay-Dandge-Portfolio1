@@ -92,6 +92,7 @@ export function Avatar3({ animation, ...props }) {
     >
       <primitive object={nodes.Hips} />
       <skinnedMesh
+        frustumCulled={false}
         name="Wolf3D_Avatar"
         geometry={nodes.Wolf3D_Avatar.geometry}
         material={materials.Wolf3D_Avatar}

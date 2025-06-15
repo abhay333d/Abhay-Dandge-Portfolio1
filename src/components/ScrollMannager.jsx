@@ -32,15 +32,8 @@ const ScrollMannager = (props) => {
     }
     const currentSection = Math.floor(data.scroll.current * data.pages);
 
-    if (data.scroll.current > lastScroll.current && currentSection === 0) {
-      onSectionChange(1);
-    }
-
-    if (
-      data.scroll.current < lastScroll.current &&
-      data.scroll.current < 1 / (data.pages - 1)
-    ) {
-      onSectionChange(0);
+    if (currentSection !== section) {
+      onSectionChange(currentSection);
     }
     lastScroll.current = data.scroll.current;
   });

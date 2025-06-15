@@ -17,6 +17,7 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { animate, scale, useMotionValue } from "framer-motion";
 import { framerMotionConfig } from "../config.js";
 import * as THREE from "three";
+import Projects from "./projects.jsx";
 
 const Experience = (props) => {
   const { menuOpen } = props;
@@ -56,32 +57,41 @@ const Experience = (props) => {
   //   },
   // });
 
-  const [skillsAnimation, setSkillsAnimation] = useState("Falling");
-  const [section2Animation, setSection2Animation] = useState("Standing");
-  const prevSection = useRef(section);
+  const [charAnimation, setCharAnimation] = useState("Sitting");
 
   useEffect(() => {
-    if (section === 1 && prevSection.current !== 1) {
-      setSkillsAnimation("FallingRolling");
-      const timer = setTimeout(() => {
-        setSkillsAnimation("Standing");
-      }, 1900);
-    }
-
-    if (section === 0 && prevSection.current === 1) {
-      setSkillsAnimation("Falling");
-    }
-
-    if (section === 2 && prevSection.current !== 2) {
-      setSection2Animation("FallingRolling");
-      const timer = setTimeout(() => {
-        setSection2Animation("Standing");
-      }, 2000);
-      return () => clearTimeout(timer);
-    }
-
-    prevSection.current = section;
+    setCharAnimation("Falling");
+    setTimeout(() => {
+      setCharAnimation(section === 0 ? "Sitting" : "Standing");
+    }, 600);
   }, [section]);
+
+  // const [skillsAnimation, setSkillsAnimation] = useState("Falling");
+  // const [section2Animation, setSection2Animation] = useState("Standing");
+  // const prevSection = useRef(section);
+
+  // useEffect(() => {
+  //   if (section === 1 && prevSection.current !== 1) {
+  //     setSkillsAnimation("FallingRolling");
+  //     const timer = setTimeout(() => {
+  //       setSkillsAnimation("Standing");
+  //     }, 1900);
+  //   }
+
+  //   if (section === 0 && prevSection.current === 1) {
+  //     setSkillsAnimation("Falling");
+  //   }
+
+  //   if (section === 2 && prevSection.current !== 2) {
+  //     setSection2Animation("FallingRolling");
+  //     const timer = setTimeout(() => {
+  //       setSection2Animation("Standing");
+  //     }, 2000);
+  //     return () => clearTimeout(timer);
+  //   }
+
+  //   prevSection.current = section;
+  // }, [section]);
 
   return (
     <>
@@ -100,13 +110,13 @@ const Experience = (props) => {
             headFollowCursor: false,
           },
           1: {
-            y: -viewport.height + 0.4,
+            y: -viewport.height ,
             x: 1,
-            z: skillsAnimation === "FallingRolling" ? 0 : 2.8,
+            z: 2,
             rotateX: 0,
             rotateY: 0,
             rotateZ: 0,
-            scale: skillsAnimation === "Standing" ? 0.7 : 0.7,
+            scale: 0.8,
             headFollowCursor: true,
           },
           2: {
@@ -119,26 +129,17 @@ const Experience = (props) => {
             scale: 0.6,
           },
           3: {
-            y: -viewport.height * 3.2,
+            y: -viewport.height * 3.7,
             x: 1.5,
             z: 1,
             rotateX: 0,
             rotateY: -Math.PI / 6,
             rotateZ: 0,
-            scale: 1.2,
+            scale: 2.2,
           },
         }}
       >
-        <Avatar3
-          animation={
-            section === 0
-              ? "Sitting"
-              : section === 1
-              ? skillsAnimation
-              : "Standing"
-          }
-          headFollowCursor={section !== 2}
-        />
+        <Avatar3 animation={charAnimation} headFollowCursor={section !== 2} />
       </motion.group>
 
       <Sky
@@ -233,6 +234,7 @@ const Experience = (props) => {
           headFollowCursor={true}
         /> */}
       </motion.group>
+      <Projects/>
     </>
   );
 };
