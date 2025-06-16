@@ -18,11 +18,10 @@ import { animate, scale, useMotionValue } from "framer-motion";
 import { framerMotionConfig } from "../config.js";
 import * as THREE from "three";
 import Projects from "./projects.jsx";
-import Background from "./Background.jsx";
 
 const Experience = (props) => {
   const { menuOpen } = props;
-  const { viewport } = useThree();
+  const { viewport, gl } = useThree();
   const data = useScroll();
 
   const [section, setSection] = useState(0);
@@ -36,6 +35,11 @@ const Experience = (props) => {
   }, [menuOpen]);
 
   const characterContainerAboutRef = useRef();
+
+  useEffect(() => {
+    gl.toneMapping = THREE.ACESFilmicToneMapping;
+    gl.toneMappingExposure = 0.6;
+  }, [gl]);
 
   useFrame((state) => {
     const currentSection = Math.floor(data.scroll.current * data.pages);
@@ -51,13 +55,6 @@ const Experience = (props) => {
     characterContainerAboutRef.current.getWorldPosition(position);
   });
 
-  // const { animation } = useControls({
-  //   animation: {
-  //     value: "Sitting",
-  //     options: ["Sitting", "Falling", "FallingRolling", "Standing"],
-  //   },
-  // });
-
   const [charAnimation, setCharAnimation] = useState("Sitting");
 
   useEffect(() => {
@@ -67,40 +64,11 @@ const Experience = (props) => {
     }, 600);
   }, [section]);
 
-  // const [skillsAnimation, setSkillsAnimation] = useState("Falling");
-  // const [section2Animation, setSection2Animation] = useState("Standing");
-  // const prevSection = useRef(section);
-
-  // useEffect(() => {
-  //   if (section === 1 && prevSection.current !== 1) {
-  //     setSkillsAnimation("FallingRolling");
-  //     const timer = setTimeout(() => {
-  //       setSkillsAnimation("Standing");
-  //     }, 1900);
-  //   }
-
-  //   if (section === 0 && prevSection.current === 1) {
-  //     setSkillsAnimation("Falling");
-  //   }
-
-  //   if (section === 2 && prevSection.current !== 2) {
-  //     setSection2Animation("FallingRolling");
-  //     const timer = setTimeout(() => {
-  //       setSection2Animation("Standing");
-  //     }, 2000);
-  //     return () => clearTimeout(timer);
-  //   }
-
-  //   prevSection.current = section;
-  // }, [section]);
-
   return (
     <>
-      {/* <Background /> */}
       <motion.group
         position={[0.47, 0.985, 2.7]}
         animate={"" + section}
-        // headFollowCursor={true}
         transition={{ duration: 0.6 }}
         rotation={[-0, 0.20943951023931948, -0]}
         variants={{
@@ -143,18 +111,44 @@ const Experience = (props) => {
         <Avatar3 animation={charAnimation} headFollowCursor={section !== 2} />
       </motion.group>
 
-      <Sky
-        scale={[20, 30, 4]}
-        position-z={1.5}
-        turbidity={11.5}
-        rayleigh={3.019}
-        mieCoefficient={0.055}
-        mieDirectionalG={0.95}
-        elevation={-2.2}
-        sunPosition={[0, -180, 0]}
-      />
+      {/* --- Custom Sky and Lighting Setup --- */}
+      {(() => {
+        const azimuth = 180; // degrees
+        const elevation = -2.2; // degrees
 
+        const phi = THREE.MathUtils.degToRad(90 - elevation);
+        const theta = THREE.MathUtils.degToRad(azimuth);
+
+        const sun = new THREE.Vector3().setFromSphericalCoords(1, phi, theta);
+
+        return (
+          <>
+            <Sky
+              distance={950000}
+              sunPosition={sun.toArray()}
+              turbidity={7.5}
+              rayleigh={1.9}
+              mieCoefficient={0.038}
+              mieDirectionalG={0.95}
+              inclination={0}
+              azimuth={180}
+            />
+            {/* Optional visual helper:
+            <sprite position={sun.toArray()} scale={[10, 10, 1]}>
+              <spriteMaterial
+                attach="material"
+                color="#fff7b2"
+                opacity={1}
+                transparent
+              />
+            </sprite> */}
+          </>
+        );
+      })()}
+
+      {/* Comment out to avoid overriding Sky gradient */}
       <Environment preset="sunset" />
+      
 
       <motion.group
         ref={characterContainerAboutRef}
@@ -197,7 +191,6 @@ const Experience = (props) => {
         }}
       >
         <directionalLight position={[-5, 3, 5]} intensity={0.4} />
-
         <Sparkles
           size={4}
           count={80}
@@ -205,17 +198,6 @@ const Experience = (props) => {
           speed={1}
           color={"#cea51e"}
         />
-
-        {/* <group position={[1.5, -0.1, -2]}>
-          <Avatar3
-            animation={skillsAnimation}
-            position={
-              skillsAnimation === "Standing" ? [0.5, -2.3, 0] : [0, 0, 0]
-            }
-            scale={skillsAnimation === "Standing" ? 2 : 1}
-            headFollowCursor={true}
-          />
-        </group> */}
       </motion.group>
 
       {/* Section 2 Avatar (e.g. Projects or Contact Section) */}
@@ -227,14 +209,8 @@ const Experience = (props) => {
           y: section === 2 ? -viewport.height * 1.9 : -10,
           z: 0,
         }}
-      >
-        {/* <Avatar3
-          animation={section2Animation}
-          position={[0.5, -2.5, 0]}
-          scale={section2Animation === "Standing" ? 2 : 1}
-          headFollowCursor={true}
-        /> */}
-      </motion.group>
+      />
+
       <Projects />
     </>
   );
