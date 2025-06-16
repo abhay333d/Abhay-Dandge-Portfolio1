@@ -18,6 +18,7 @@ import { animate, scale, useMotionValue } from "framer-motion";
 import { framerMotionConfig } from "../config.js";
 import * as THREE from "three";
 import Projects from "./projects.jsx";
+import Background from "./Background.jsx";
 
 const Experience = (props) => {
   const { menuOpen } = props;
@@ -95,12 +96,12 @@ const Experience = (props) => {
 
   return (
     <>
+      {/* <Background /> */}
       <motion.group
         position={[0.47, 0.985, 2.7]}
         animate={"" + section}
         // headFollowCursor={true}
-        // transition={{ duration: 0.6 }}
-        transition={{ duration: 0.2 }}
+        transition={{ duration: 0.6 }}
         rotation={[-0, 0.20943951023931948, -0]}
         variants={{
           0: {
@@ -110,7 +111,7 @@ const Experience = (props) => {
             headFollowCursor: false,
           },
           1: {
-            y: -viewport.height ,
+            y: -viewport.height,
             x: 1,
             z: 2,
             rotateX: 0,
@@ -120,7 +121,7 @@ const Experience = (props) => {
             headFollowCursor: true,
           },
           2: {
-            x: -2,
+            x: -1,
             y: -viewport.height * 2 + 0.5,
             z: 0,
             rotateX: 0,
@@ -234,7 +235,7 @@ const Experience = (props) => {
           headFollowCursor={true}
         /> */}
       </motion.group>
-      <Projects/>
+      <Projects />
     </>
   );
 };

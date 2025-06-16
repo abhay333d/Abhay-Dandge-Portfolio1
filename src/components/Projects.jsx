@@ -1,46 +1,140 @@
-import React from "react";
+import { Image, Text } from "@react-three/drei";
+import { useFrame, useThree } from "@react-three/fiber";
+import { animate, useMotionValue } from "framer-motion";
+import { motion } from "framer-motion-3d";
+import { atom, useAtom } from "jotai";
+import React, { useEffect, useRef } from "react";
+import * as THREE from "three";
 
-export const projects = [
+export const project = [
   {
     title: "Marble Race",
     url: "https://a-game-with-r3f.vercel.app/",
-    description:
-      "An interactive 3D marble racing game built with React-Three-Fiber, simulating physics-based movement in a dynamic scene.",
+    image: "projects/MarbleRace.png",
+    description: "A physics-based 3D marble game built with React-Three-Fiber.",
   },
   {
     title: "Portal Scene",
     url: "https://portal-scene-with-r3f-chi.vercel.app/",
-    description:
-      "A stylized portal animation crafted in Blender and brought to life with shader effects and animations using React-Three-Fiber.",
+    image: "projects/Portal.png",
+    description: "A stylized Blender portal with shaders and R3F animation.",
   },
   {
     title: "Planets in AR",
     url: "https://planets-livid.vercel.app/",
-    description:
-      "An immersive Augmented Reality experience powered by Three.js and MindAR.js, showcasing planets in 3D—best viewed on mobile rear cameras.",
+    image: "projects/Planets.png",
+    description: "An AR experience of planets using Three.js and MindAR.js.",
   },
   {
     title: "Forever",
     url: "https://capstone-project-mern-frontend.onrender.com/",
-    description:
-      "A fully-featured MERN stack e-commerce platform with user authentication, product management, and secure payments.",
+    image: "projects/Forever.png",
+    description: "A full-stack MERN e-commerce app with payments and auth.",
   },
   {
-    title: "Morphing Particles",
+    title: "Morphing",
     url: "https://particles-morphing-nu.vercel.app/",
-    description:
-      "A visually captivating particle animation where custom shaders enable smooth transitions between morph targets in real-time.",
+    image: "projects/ParticlesMorphing.png",
+    description: "Shader-driven particles that morph fluidly between shapes.",
   },
   {
     title: "Earth",
     url: "https://earth-psi.vercel.app/",
-    description:
-      "A realistic 3D visualization of Earth using advanced materials, lighting, and shaders in Three.js for an immersive space scene.",
+    image: "projects/Earth.png",
+    description: "A 3D Earth model with realistic shaders and lighting.",
+  },
+  {
+    title: "Portfolio",
+    url: "https://earth-psi.vercel.app/",
+    image: "projects/Portfolio.png",
+    description: "A 3D portfolio site showcasing my work and creativity.",
   },
 ];
 
-const Projects = () => {
-  return <group></group>;
+const Project = (props) => {
+  const { project, highlighted } = props;
+
+  const background = useRef();
+  const bgOpacity = useMotionValue(0.4);
+
+  useEffect(() => {
+    animate(bgOpacity, highlighted ? 0.7 : 0.4);
+  }, [highlighted]);
+
+  useFrame(() => {
+    background.current.material.opacity = bgOpacity.get();
+  });
+
+  return (
+    <group {...props} rotation={[0, 0.05 * Math.PI, 0]}>
+      <mesh
+        position-z={-0.01}
+        onClick={() => window.open(project.url, "_blank")}
+        ref={background}
+      >
+        <planeGeometry args={[2.2, 2.2]} />
+        <meshBasicMaterial color="gold" transparent opacity={0.3} />
+      </mesh>
+      <Image
+        scale={[2, 1.2, 1]}
+        url={project.image}
+        toneMapped={false}
+        position-y={0.3}
+      />
+      <Text
+        maxWidth={2}
+        anchorX={"left"}
+        anchorY={"top"}
+        fontSize={0.2}
+        position={[-1, -0.4, 0]}
+        color={"black"}
+      >
+        {project.title.toUpperCase()}
+      </Text>
+      <Text
+        maxWidth={2}
+        anchorX={"left"}
+        anchorY={"top"}
+        fontSize={0.1}
+        position={[-1, -0.7, 0]}
+        color={"black"}
+      >
+        {project.description}
+      </Text>
+    </group>
+  );
 };
+
+const Projects = () => {
+  const { viewport } = useThree();
+  const [currentProject] = useAtom(currentProjectAtom);
+
+  return (
+    <group position-y={-viewport.height * 2}>
+      {project.map((project, index) => (
+        <motion.group
+          key={"project_" + index}
+          position={[index * 2.5, 0, -3]}
+          animate={{
+            x: 0 + (index - currentProject) * 2,
+            y: currentProject === index ? 0 : -0.1,
+            z: currentProject === index ? -1 : -3,
+            rotateX: currentProject === index ? 0 : -Math.PI / 3,
+            rotateZ: currentProject === index ? 0 : (-0.1 * Math.PI) / 3,
+          }}
+        >
+          <Project
+            project={project}
+            highlighted={index === currentProject}
+            position-y={0.7}
+            scale={0.8}
+          />
+        </motion.group>
+      ))}
+    </group>
+  );
+};
+
+export const currentProjectAtom = atom(Math.floor(Projects.length / 2));
 
 export default Projects;

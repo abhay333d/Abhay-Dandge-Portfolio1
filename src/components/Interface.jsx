@@ -1,5 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useAtom } from "jotai";
+import { currentProjectAtom, project } from "./projects";
 
 const Section = (props) => {
   const { children } = props;
@@ -196,7 +198,9 @@ const SkillsSection = () => {
   return (
     <Section>
       <motion.div whileInView={"visible"}>
-        <h2 className="text-4xl font-bold text-amber-300 hover:underline transition-all ">Skills</h2>
+        <h2 className="text-4xl font-bold text-amber-300 hover:underline transition-all ">
+          Skills
+        </h2>
         <div className="mt-8 flex gap-8">
           {skillsColumnsFixed.map((column, colIdx) => (
             <div key={colIdx} className="space-y-4">
@@ -285,10 +289,65 @@ const SkillsSection = () => {
     </Section>
   );
 };
+
 const ProjectsSection = () => {
+  const [currentProject, setCurrentProject] = useAtom(currentProjectAtom);
+
+  const nextProject = () => {
+    setCurrentProject((currentProject + 1) % project.length);
+  };
+
+  const previousProject = () => {
+    setCurrentProject((currentProject - 1 + project.length) % project.length);
+  };
+
   return (
     <Section>
-      <h1>Projects</h1>
+      <div className="flex w-full h-full gap-8 items-center justify-center">
+        <button
+          className="hover:text-amber-300 transition-colors flex items-center text-gray-600"
+          onClick={previousProject}
+          aria-label="Previous Project"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-6 h-6 mr-2"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+          Previous
+        </button>
+        <h2 className="text-5xl font-bold text-amber-300">Projects</h2>
+        <button
+          className="hover:text-amber-300 transition-colors flex items-center text-gray-600"
+          onClick={nextProject}
+          aria-label="Next Project"
+        >
+          Next
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-6 h-6 ml-2"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
+        </button>
+      </div>
     </Section>
   );
 };

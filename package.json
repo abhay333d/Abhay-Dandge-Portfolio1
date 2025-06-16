@@ -16,6 +16,7 @@
     "framer-motion": "^12.16.0",
     "framer-motion-3d": "^12.4.13",
     "gsap": "^3.13.0",
+    "jotai": "^2.12.5",
     "leva": "^0.10.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
