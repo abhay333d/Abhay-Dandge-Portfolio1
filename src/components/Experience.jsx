@@ -36,11 +36,6 @@ const Experience = (props) => {
 
   const characterContainerAboutRef = useRef();
 
-  useEffect(() => {
-    gl.toneMapping = THREE.ACESFilmicToneMapping;
-    gl.toneMappingExposure = 0.6;
-  }, [gl]);
-
   useFrame((state) => {
     const currentSection = Math.floor(data.scroll.current * data.pages);
 
