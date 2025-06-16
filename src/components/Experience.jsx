@@ -154,8 +154,8 @@ const Experience = (props) => {
       >
         <Sparkles
           size={4}
-          count={60}
-          scale={[8, 4, 10]}
+          count={500}
+          scale={[8, 60, 10]}
           speed={1}
           color={"#cea51e"}
         />
@@ -186,13 +186,6 @@ const Experience = (props) => {
         }}
       >
         <directionalLight position={[-5, 3, 5]} intensity={0.4} />
-        <Sparkles
-          size={4}
-          count={80}
-          scale={[8, 6, 8]}
-          speed={1}
-          color={"#cea51e"}
-        />
       </motion.group>
 
       {/* Section 2 Avatar (e.g. Projects or Contact Section) */}
