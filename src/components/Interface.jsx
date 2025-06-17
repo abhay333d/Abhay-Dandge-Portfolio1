@@ -42,7 +42,7 @@ const AboutSection = () => {
         </span>
       </h1>
       <motion.p
-        className="text-lg text-gray-600 mt-4"
+        className="text-lg text-white mt-4"
         initial={{ opacity: 0, y: 25 }}
         whileInView={{
           opacity: 1,

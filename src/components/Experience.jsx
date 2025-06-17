@@ -84,13 +84,13 @@ const Experience = (props) => {
             headFollowCursor: true,
           },
           2: {
-            x: -1,
-            y: -viewport.height * 2 + 0.5,
-            z: 0,
+            x: -0.3,
+            y: -viewport.height * 2 + 1,
+            z: 2,
             rotateX: 0,
             rotateY: Math.PI / 2,
             rotateZ: 0,
-            scale: 0.6,
+            scale: 0.5,
           },
           3: {
             y: -viewport.height * 3.7,

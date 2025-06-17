@@ -5,7 +5,6 @@ import { Scroll, ScrollControls } from "@react-three/drei";
 import Interface from "./components/Interface.jsx";
 import ScrollMannager from "./components/ScrollMannager.jsx";
 import Menu from "./components/Menu.jsx";
-import { MotionConfig } from "framer-motion";
 import { Cursor } from "./components/Cursor.jsx";
 
 const App = () => {
@@ -31,11 +30,11 @@ const App = () => {
           </Scroll>
         </ScrollControls>
       </Canvas>
-      <Menu
+      {/* <Menu
         onSectionChange={setSection}
         menuOpen={menuOpen}
         setMenuOpen={setMenuOpen}
-      />
+      /> */}
       <Cursor />
     </>
   );

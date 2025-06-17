@@ -76,7 +76,7 @@ const Project = (props) => {
         <meshBasicMaterial color="gold" transparent opacity={0.3} />
       </mesh>
       <Image
-        scale={[2, 1.2, 1]}
+        scale={[2, 1.4, 1]}
         url={project.image}
         toneMapped={false}
         position-y={0.3}
