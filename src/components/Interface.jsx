@@ -356,7 +356,7 @@ const ContactSection = () => {
     <Section>
       <div className="w-full max-w-lg bg-[#ffffff37] rounded-2xl shadow-xl p-10 flex flex-col gap-6">
         <h2 className="text-4xl font-bold mb-2 text-[#cea51e]">Contact Me</h2>
-        <p className="text-gray-600 mb-4">
+        <p className="text-white mb-4">
           Interested in working together or have a question? <br />
           Fill out the form below or email me at{" "}
           <a
@@ -405,7 +405,7 @@ const ContactSection = () => {
             href="https://github.com/abhay333d"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-700 hover:text-[#cea51e] text-2xl"
+            className="text-white hover:text-[#cea51e] text-2xl"
             aria-label="GitHub"
           >
             <svg fill="currentColor" viewBox="0 0 24 24" className="w-7 h-7">
@@ -416,7 +416,7 @@ const ContactSection = () => {
             href="https://www.linkedin.com/in/abhay-dandge-a16082257/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-700 hover:text-[#cea51e] text-2xl"
+            className="text-white hover:text-[#cea51e] text-2xl"
             aria-label="LinkedIn"
           >
             <svg fill="currentColor" viewBox="0 0 24 24" className="w-7 h-7">
@@ -427,7 +427,7 @@ const ContactSection = () => {
             href="https://www.instagram.com/_abhay_dandge_/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-700 hover:text-[#cea51e] text-2xl"
+            className="text-white hover:text-[#cea51e] text-2xl"
             aria-label="Instagram"
           >
             {/* SVG from https://www.svgrepo.com/show/504487/instagram.svg */}

@@ -3,14 +3,16 @@ import { useFrame } from "@react-three/fiber";
 import gsap from "gsap";
 import React, { useEffect, useRef } from "react";
 
-const ScrollMannager = (props) => {
+const ScrollManager = (props) => {
   const { section, onSectionChange } = props;
   const data = useScroll();
   const lastScroll = useRef(0);
   const isAnimating = useRef(false);
 
-  data.fill.classList.add("top-0");
+  data.fill.classList.add("top-20");
   data.fill.classList.add("absolute");
+
+  
 
   useEffect(() => {
     gsap.to(data.el, {
@@ -41,4 +43,4 @@ const ScrollMannager = (props) => {
   return null;
 };
 
-export default ScrollMannager;
+export default ScrollManager;

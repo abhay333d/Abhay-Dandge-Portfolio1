@@ -44,7 +44,8 @@ const Experience = (props) => {
     }
 
     state.camera.position.x = cameraPositionX.get();
-    state.camera.lookAt(cameraLookAtX.get(), 0, 0);
+    const lookAtTarget = new THREE.Vector3(cameraLookAtX.get(), 0, 0);
+    state.camera.lookAt(lookAtTarget);
 
     const position = new THREE.Vector3();
     characterContainerAboutRef.current.getWorldPosition(position);
@@ -71,7 +72,6 @@ const Experience = (props) => {
             scaleX: 0.4,
             scaleY: 0.4,
             scaleZ: 0.4,
-            headFollowCursor: false,
           },
           1: {
             y: -viewport.height,
@@ -81,7 +81,6 @@ const Experience = (props) => {
             rotateY: 0,
             rotateZ: 0,
             scale: 0.8,
-            headFollowCursor: true,
           },
           2: {
             x: -0.3,
@@ -143,7 +142,6 @@ const Experience = (props) => {
 
       {/* Comment out to avoid overriding Sky gradient */}
       <Environment preset="sunset" />
-      
 
       <motion.group
         ref={characterContainerAboutRef}

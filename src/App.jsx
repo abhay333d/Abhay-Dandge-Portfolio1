@@ -3,16 +3,16 @@ import React, { useEffect, useState } from "react";
 import Experience from "./components/Experience.jsx";
 import { Scroll, ScrollControls } from "@react-three/drei";
 import Interface from "./components/Interface.jsx";
-import ScrollMannager from "./components/ScrollMannager.jsx";
 import Menu from "./components/Menu.jsx";
 import { Cursor } from "./components/Cursor.jsx";
+import ScrollMannager from "./components/ScrollManager.jsx";
 
 const App = () => {
   const [section, setSection] = useState(0);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpened, setMenuOpened] = useState(false);
 
   useEffect(() => {
-    setMenuOpen(false);
+    setMenuOpened(false);
   }, [section]);
 
   return (
@@ -23,7 +23,7 @@ const App = () => {
         <ScrollControls pages={4} damping={0.1}>
           <ScrollMannager section={section} onSectionChange={setSection} />
           <Scroll>
-            <Experience section={section} menuOpen={menuOpen} />
+            <Experience section={section} menuOpen={menuOpened} />
           </Scroll>
           <Scroll html>
             <Interface />
@@ -31,9 +31,9 @@ const App = () => {
         </ScrollControls>
       </Canvas>
       {/* <Menu
-        onSectionChange={setSection}
-        menuOpen={menuOpen}
-        setMenuOpen={setMenuOpen}
+        onSectionChange={setSection} 
+        menuOpened={menuOpened}
+        setMenuOpened={setMenuOpened}
       /> */}
       <Cursor />
     </>
