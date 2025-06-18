@@ -19,12 +19,11 @@ export const project = [
     image: "projects/Portal.png",
     description: "A stylized Blender portal with shaders and R3F animation.",
   },
-
   {
-    title: "Forever",
-    url: "https://capstone-project-mern-frontend.onrender.com/",
-    image: "projects/Forever.png",
-    description: "A full-stack MERN e-commerce app with payments and auth.",
+    title: "Morphing",
+    url: "https://particles-morphing-nu.vercel.app/",
+    image: "projects/ParticlesMorphing.png",
+    description: "Shader-driven particles that morph fluidly between shapes.",
   },
   {
     title: "Planets in AR",
@@ -33,16 +32,16 @@ export const project = [
     description: "An AR experience of planets using Three.js and MindAR.js.",
   },
   {
-    title: "Morphing",
-    url: "https://particles-morphing-nu.vercel.app/",
-    image: "projects/ParticlesMorphing.png",
-    description: "Shader-driven particles that morph fluidly between shapes.",
-  },
-  {
     title: "Earth",
     url: "https://earth-psi.vercel.app/",
     image: "projects/Earth.png",
     description: "A 3D Earth model with realistic shaders and lighting.",
+  },
+  {
+    title: "Forever",
+    url: "https://capstone-project-mern-frontend.onrender.com/",
+    image: "projects/Forever.png",
+    description: "A full-stack MERN e-commerce app with payments and auth.",
   },
   {
     title: "Portfolio",
