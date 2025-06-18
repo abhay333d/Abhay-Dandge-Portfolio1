@@ -4,10 +4,10 @@ import { useAtom } from "jotai";
 import { currentProjectAtom, project } from "./projects";
 
 const Section = (props) => {
-  const { children } = props;
+  const { children, mobileBottom } = props;
   return (
     <motion.section
-      className="w-screen h-screen p-30 max-w-screen-2xl mx-auto flex flex-col items-start justify-center"
+      className="w-screen h-screen p-10 md:p-30 max-w-screen-2xl mx-auto flex flex-col items-start justify-center "
       initial={{ opacity: 0, y: 50 }}
       whileInView={{
         opacity: 1,
@@ -33,8 +33,8 @@ const Interface = () => {
 
 const AboutSection = () => {
   return (
-    <Section>
-      <h1 className="text-6xl font-extrabold leading-snug">
+    <Section mobileBottom>
+      <h1 className=" text-4xl md:text-6xl font-extrabold leading-snug">
         Hi, I'm
         <br />
         <span className="bg-[#ceab1e52] rounded-bl-2xl px-1 italic">
@@ -42,7 +42,7 @@ const AboutSection = () => {
         </span>
       </h1>
       <motion.p
-        className="text-lg text-white mt-4"
+        className=" text-sm md:text-lg text-white mt-4"
         initial={{ opacity: 0, y: 25 }}
         whileInView={{
           opacity: 1,
@@ -57,7 +57,7 @@ const AboutSection = () => {
         web applications.
       </motion.p>
       <motion.button
-        className="bg-[#cea51ec3] text-white py-4 px-8 rounded-lg font-bold text-lg mt-16"
+        className="bg-[#cea51ec3] text-white py-3 md:py-4 px-5 md:px-8 rounded-lg font-bold text-sm md:text-lg mt-16"
         initial={{ opacity: 0, y: 25 }}
         whileInView={{
           opacity: 1,
@@ -195,17 +195,22 @@ const SkillsSection = () => {
       .slice(midFixed),
   ];
 
+  const languageColumns = [
+    languages.filter((_, i) => i % 2 === 0), // Even indices
+    languages.filter((_, i) => i % 2 === 1), // Odd indices
+  ];
+
   return (
     <Section>
-      <motion.div whileInView={"visible"}>
-        <h2 className="text-4xl font-bold text-amber-300 hover:underline transition-all ">
+      <motion.div whileInView={"visible"} className=" mb-40 md:mb-0">
+        <h2 className=" text-3xl md:text-4xl font-bold text-amber-300 hover:underline transition-all ">
           Skills
         </h2>
         <div className="mt-8 flex gap-8">
           {skillsColumnsFixed.map((column, colIdx) => (
             <div key={colIdx} className="space-y-4">
               {column.map((skill, index) => (
-                <div key={skill.title} className="w-64">
+                <div key={skill.title} className=" w-full md:w-64">
                   <div className="flex items-center gap-3">
                     <img
                       src={skill.logo}
@@ -214,7 +219,7 @@ const SkillsSection = () => {
                       style={{ objectFit: "contain" }}
                     />
                     <motion.h3
-                      className="text-l font-bold text-white"
+                      className=" text-sm md:text-lg font-bold text-white"
                       initial={{ opacity: 0 }}
                       variants={{
                         visible: {
@@ -244,47 +249,59 @@ const SkillsSection = () => {
             </div>
           ))}
         </div>
-        {/* <div>
-                <h2 className="text-4xl font-bold mt-8">Languages</h2>
-                <div className="mt-8 space-y-4">
-                    {languages.map((language, index) => (
-                        <div key={language.title} className="w-64">
-                            <motion.div
-                                className="flex items-center gap-2"
-                                initial={{ opacity: 0 }}
-                                variants={{
-                                    visible: {
-                                        opacity: 1,
-                                        transition: { duration: 1, delay: 2 + index * 0.2 },
-                                    },
-                                }}
-                            >
-                                <img
-                                    src={language.flag}
-                                    alt={`${language.title} flag`}
-                                    className="w-6 h-4 rounded-sm object-cover"
-                                />
-                                <h3 className="text-xl font-bold text-gray-800">
-                                    {language.title}
-                                </h3>
-                            </motion.div>
-                            <div className="w-full bg-gray-200 rounded-full h-2 dark:bg-gray-700 mt-2">
-                                <motion.div
-                                    className="bg-[#cea51ec3] h-full rounded-full"
-                                    style={{ width: `${language.level}%` }}
-                                    initial={{ scaleX: 0, originX: 0 }}
-                                    variants={{
-                                        visible: {
-                                            scaleX: 1,
-                                            transition: { duration: 1, delay: 2 + index * 0.2 },
-                                        },
-                                    }}
-                                ></motion.div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div> */}
+        <div>
+          <h2 className="text-3xl md:text-4xl font-bold mt-8 text-amber-300 hover:underline transition-all">
+            Languages
+          </h2>
+          <div className="mt-8 flex gap-8">
+            {languageColumns.map((column, colIdx) => (
+              <div key={colIdx} className="space-y-4">
+                {column.map((language, index) => (
+                  <div key={language.title} className="w-full md:w-64">
+                    <motion.div
+                      className="flex items-center gap-2"
+                      initial={{ opacity: 0 }}
+                      variants={{
+                        visible: {
+                          opacity: 1,
+                          transition: {
+                            duration: 1,
+                            delay: 2 + (colIdx * column.length + index) * 0.2,
+                          },
+                        },
+                      }}
+                    >
+                      <img
+                        src={language.flag}
+                        alt={`${language.title} flag`}
+                        className="w-6 h-4 rounded-sm object-cover"
+                      />
+                      <h3 className=" text-lg md:text-xl font-bold text-white">
+                        {language.title}
+                      </h3>
+                    </motion.div>
+                    <div className="w-full bg-gray-200 rounded-full h-2 dark:bg-gray-700 mt-2">
+                      <motion.div
+                        className="bg-[#cea51ec3] h-full rounded-full"
+                        style={{ width: `${language.level}%` }}
+                        initial={{ scaleX: 0, originX: 0 }}
+                        variants={{
+                          visible: {
+                            scaleX: 1,
+                            transition: {
+                              duration: 1,
+                              delay: 2 + (colIdx * column.length + index) * 0.2,
+                            },
+                          },
+                        }}
+                      ></motion.div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
       </motion.div>
     </Section>
   );
@@ -305,7 +322,7 @@ const ProjectsSection = () => {
     <Section>
       <div className="flex w-full h-full gap-8 items-center justify-center">
         <button
-          className="hover:text-amber-300 transition-colors flex items-center text-gray-600"
+          className="hover:text-amber-300 transition-colors flex items-center text-white"
           onClick={previousProject}
           aria-label="Previous Project"
         >
@@ -325,9 +342,11 @@ const ProjectsSection = () => {
           </svg>
           Previous
         </button>
-        <h2 className="text-5xl font-bold text-amber-300">Projects</h2>
+        <h2 className=" text-4xl md:text-5xl font-bold text-amber-300">
+          Projects
+        </h2>
         <button
-          className="hover:text-amber-300 transition-colors flex items-center text-gray-600"
+          className="hover:text-amber-300 transition-colors flex items-center text-white"
           onClick={nextProject}
           aria-label="Next Project"
         >

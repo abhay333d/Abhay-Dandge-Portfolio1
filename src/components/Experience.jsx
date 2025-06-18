@@ -24,6 +24,9 @@ const Experience = (props) => {
   const { viewport, gl } = useThree();
   const data = useScroll();
 
+  const isMobile = window.innerWidth < 768;
+  const responsiveRatio = viewport.width / 12;
+
   const [section, setSection] = useState(0);
 
   const cameraPositionX = useMotionValue();
@@ -150,21 +153,6 @@ const Experience = (props) => {
         rotation-y={(Math.PI / 6) * 0.4}
         animate={{ y: section === 0 ? 1 : 0.9 }}
       >
-        <Sparkles
-          size={4}
-          count={500}
-          scale={[8, 60, 10]}
-          speed={1}
-          color={"#cea51e"}
-        />
-        <ContactShadows
-          opacity={0.4}
-          scale={10}
-          blur={1}
-          far={10}
-          resolution={256}
-          color={"black"}
-        />
         <Castle
           scale={0.004}
           position={[0, 0, -2]}
@@ -172,6 +160,22 @@ const Experience = (props) => {
           section={section}
         />
       </motion.group>
+
+      <motion.group
+        ref={characterContainerAboutRef}
+        position={[0.4, 1, 3]}
+        scale={0.38}
+        rotation-y={(Math.PI / 6) * 0.4}
+        animate={{ y: section === 0 ? 1 : 0.9 }}
+      >
+      <Sparkles
+        size={4}
+        count={500}
+        scale={[8, 60, 10]}
+        speed={1}
+        color={"#cea51e"}
+        />
+        </motion.group>
 
       {/* Skills Section */}
       <motion.group

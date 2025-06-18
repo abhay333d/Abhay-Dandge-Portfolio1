@@ -19,17 +19,18 @@ export const project = [
     image: "projects/Portal.png",
     description: "A stylized Blender portal with shaders and R3F animation.",
   },
-  {
-    title: "Planets in AR",
-    url: "https://planets-livid.vercel.app/",
-    image: "projects/Planets.png",
-    description: "An AR experience of planets using Three.js and MindAR.js.",
-  },
+
   {
     title: "Forever",
     url: "https://capstone-project-mern-frontend.onrender.com/",
     image: "projects/Forever.png",
     description: "A full-stack MERN e-commerce app with payments and auth.",
+  },
+  {
+    title: "Planets in AR",
+    url: "https://planets-livid.vercel.app/",
+    image: "projects/Planets.png",
+    description: "An AR experience of planets using Three.js and MindAR.js.",
   },
   {
     title: "Morphing",
@@ -105,6 +106,8 @@ const Project = (props) => {
   );
 };
 
+export const currentProjectAtom = atom(Math.floor(project.length / 2));
+
 const Projects = () => {
   const { viewport } = useThree();
   const [currentProject] = useAtom(currentProjectAtom);
@@ -134,7 +137,5 @@ const Projects = () => {
     </group>
   );
 };
-
-export const currentProjectAtom = atom(Math.floor(Projects.length / 2));
 
 export default Projects;
