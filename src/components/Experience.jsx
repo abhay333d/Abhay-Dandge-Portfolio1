@@ -77,29 +77,29 @@ const Experience = (props) => {
             scaleZ: 0.4,
           },
           1: {
-            y: -viewport.height,
-            x: 1,
+            y: isMobile ? -viewport.height + 0.2 : -viewport.height,
+            x: isMobile ? 0.4 : 1,
             z: 2,
             rotateX: 0,
             rotateY: 0,
             rotateZ: 0,
-            scale: 0.8,
+            scale: 0.9,
           },
           2: {
-            x: -0.3,
+            x: isMobile ? 0.1 : -0.3,
             y: -viewport.height * 2 + 1,
             z: 2,
             rotateX: 0,
             rotateY: Math.PI / 2,
             rotateZ: 0,
-            scale: 0.5,
+            scale: isMobile ? 0.35 : 0.5,
           },
           3: {
             y: -viewport.height * 3.7,
-            x: 1.5,
+            x: isMobile ? 0.2 : 1.5,
             z: 1,
             rotateX: 0,
-            rotateY: -Math.PI / 6,
+            rotateY: isMobile ? 0 : -Math.PI / 6,
             rotateZ: 0,
             scale: 2.2,
           },
@@ -130,20 +130,10 @@ const Experience = (props) => {
               inclination={0}
               azimuth={180}
             />
-            {/* Optional visual helper:
-            <sprite position={sun.toArray()} scale={[10, 10, 1]}>
-              <spriteMaterial
-                attach="material"
-                color="#fff7b2"
-                opacity={1}
-                transparent
-              />
-            </sprite> */}
           </>
         );
       })()}
 
-      {/* Comment out to avoid overriding Sky gradient */}
       <Environment preset="sunset" />
 
       <motion.group
@@ -168,14 +158,14 @@ const Experience = (props) => {
         rotation-y={(Math.PI / 6) * 0.4}
         animate={{ y: section === 0 ? 1 : 0.9 }}
       >
-      <Sparkles
-        size={4}
-        count={500}
-        scale={[8, 60, 10]}
-        speed={1}
-        color={"#cea51e"}
+        <Sparkles
+          size={4}
+          count={500}
+          scale={[8, 60, 10]}
+          speed={1}
+          color={"#cea51e"}
         />
-        </motion.group>
+      </motion.group>
 
       {/* Skills Section */}
       <motion.group

@@ -145,16 +145,16 @@ const skills = [
   },
   {
     title: "Blender",
-    level: 50,
+    level: 40,
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/blender/blender-original.svg",
   },
 ];
 
 const languages = [
-  { title: "English", level: 95, flag: "https://flagcdn.com/us.svg" },
+  { title: "English", level: 90, flag: "https://flagcdn.com/us.svg" },
   { title: "Hindi", level: 100, flag: "https://flagcdn.com/in.svg" },
   { title: "Marathi", level: 100, flag: "https://flagcdn.com/in.svg" },
-  { title: "Japanese", level: 50, flag: "https://flagcdn.com/jp.svg" },
+  { title: "Japanese", level: 20, flag: "https://flagcdn.com/jp.svg" },
 ];
 
 const SkillsSection = () => {

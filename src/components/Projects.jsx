@@ -112,6 +112,8 @@ const Projects = () => {
   const { viewport } = useThree();
   const [currentProject] = useAtom(currentProjectAtom);
 
+  const isMobile = window.innerWidth < 768;
+
   return (
     <group position-y={-viewport.height * 2}>
       {project.map((project, index) => (
@@ -119,7 +121,9 @@ const Projects = () => {
           key={"project_" + index}
           position={[index * 2.5, 0, -3]}
           animate={{
-            x: 0 + (index - currentProject) * 2,
+            x: isMobile
+              ? 0 + (index - currentProject) * 1.5
+              : 0 + (index - currentProject) * 2,
             y: currentProject === index ? 0 : -0.1,
             z: currentProject === index ? -1 : -3,
             rotateX: currentProject === index ? 0 : -Math.PI / 3,
@@ -130,7 +134,7 @@ const Projects = () => {
             project={project}
             highlighted={index === currentProject}
             position-y={0.7}
-            scale={0.8}
+            scale={isMobile ? 0.55 : 0.8}
           />
         </motion.group>
       ))}
