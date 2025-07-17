@@ -17,7 +17,7 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { animate, scale, useMotionValue } from "framer-motion";
 import { framerMotionConfig } from "../config.js";
 import * as THREE from "three";
-import Projects from "./projects.jsx";
+import Projects from "./Projects.jsx";
 
 const Experience = (props) => {
   const { menuOpen } = props;

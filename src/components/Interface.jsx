@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useAtom } from "jotai";
-import { currentProjectAtom, project } from "./projects";
+import { currentProjectAtom, project } from "./Projects";
 
 const Section = (props) => {
   const { children, mobileBottom } = props;
