@@ -114,7 +114,9 @@ const Projects = () => {
   const isMobile = window.innerWidth < 768;
 
   return (
-    <group position-y={-viewport.height * 2}>
+    <group
+      position-y={isMobile ? -viewport.height * 2 : -viewport.height * 2 - 1}
+    >
       {project.map((project, index) => (
         <motion.group
           key={"project_" + index}

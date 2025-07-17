@@ -1,11 +1,12 @@
 import { Canvas } from "@react-three/fiber";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import Experience from "./components/Experience.jsx";
 import { Scroll, ScrollControls } from "@react-three/drei";
 import Interface from "./components/Interface.jsx";
 import Menu from "./components/Menu.jsx";
 import { Cursor } from "./components/Cursor.jsx";
 import ScrollMannager from "./components/ScrollManager.jsx";
+import { LoadingScreen } from "./components/LoadingScreen.jsx";
 
 // const FullscreenButton = () => {
 //   const handleFullscreen = () => {
@@ -86,11 +87,10 @@ import ScrollMannager from "./components/ScrollManager.jsx";
 //   );
 // };
 
-
-
 const App = () => {
   const [section, setSection] = useState(0);
   const [menuOpened, setMenuOpened] = useState(false);
+  const [started, setStarted] = useState(false);
 
   useEffect(() => {
     setMenuOpened(false);
@@ -98,6 +98,7 @@ const App = () => {
 
   return (
     <>
+      <LoadingScreen started={started} setStarted={setStarted} />
       {/* <FullscreenButton/> */}
       <Canvas shadows camera={{ position: [1, 2, 5], fov: 40 }}>
         <color attach="background" args={["#ececec"]} />
@@ -105,10 +106,12 @@ const App = () => {
         <ScrollControls pages={4} damping={0.1}>
           <ScrollMannager section={section} onSectionChange={setSection} />
           <Scroll>
-            <Experience section={section} menuOpen={menuOpened} />
+            <Suspense>
+              <Experience section={section} menuOpen={menuOpened} />
+            </Suspense>
           </Scroll>
           <Scroll html>
-            <Interface />
+            <Interface setSection={setSection} />
           </Scroll>
         </ScrollControls>
       </Canvas>

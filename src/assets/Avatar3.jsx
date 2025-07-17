@@ -105,3 +105,7 @@ export function Avatar3({ animation, ...props }) {
 }
 
 useGLTF.preload("models/avatar3.glb");
+useFBX.preload("fbx/animations/Sitting.fbx");
+useFBX.preload("fbx/animations/Falling_Idle.fbx");
+useFBX.preload("fbx/animations/Falling_To_Roll.fbx");
+useFBX.preload("fbx/animations/Happy_Idle.fbx");
