@@ -387,9 +387,8 @@ const ContactSection = () => {
         </p>
         <form
           className="flex flex-col gap-4"
-          action="https://formspree.io/f/xayrjvwj"
+          action="https://formspree.io/f/xjkokbrn"
           method="POST"
-          target="_blank"
         >
           <input
             type="text"
