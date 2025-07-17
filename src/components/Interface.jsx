@@ -66,7 +66,7 @@ const AboutSection = () => {
         }}
       >
         <a
-          href="/Abhay_Dandge_Resume.pdf"
+          href="/Dandge_Abhay_Resume.pdf"
           download
           className="flex items-center gap-2"
         >
