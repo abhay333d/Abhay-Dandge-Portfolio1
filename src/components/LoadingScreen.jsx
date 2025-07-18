@@ -25,6 +25,8 @@ export const LoadingScreen = (props) => {
           className="absolute left-0 top-0 overflow-hidden truncate text-clip transition-all duration-500"
           style={{
             width: `${progress}%`,
+            lineHeight: "1em", // ensures descenders are accommodated
+            paddingBottom: "0.2em", // small bottom space for safety
           }}
         >
           Abhay Dandge
