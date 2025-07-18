@@ -45,7 +45,7 @@ export const project = [
   },
   {
     title: "Portfolio",
-    url: "https://earth-psi.vercel.app/",
+    url: "https://abhay-dandge-portfolio.vercel.app/",
     image: "projects/Portfolio.png",
     description: "A 3D portfolio site showcasing my work and creativity.",
   },
