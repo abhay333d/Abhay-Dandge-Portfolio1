@@ -105,22 +105,22 @@ const skills = [
   },
   {
     title: "React Three Fiber",
-    level: 80,
+    level: 90,
     logo: "https://raw.githubusercontent.com/pmndrs/branding/main/r3f/logo.svg",
   },
-  {
-    title: "MongoDB",
-    level: 80,
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
-  },
-  {
-    title: "Express.js",
-    level: 80,
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
-  },
+  // {
+  //   title: "MongoDB",
+  //   level: 80,
+  //   logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+  // },
+  // {
+  //   title: "Express.js",
+  //   level: 80,
+  //   logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+  // },
   {
     title: "Node.js",
-    level: 90,
+    level: 80,
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
   },
   {
@@ -130,7 +130,7 @@ const skills = [
   },
   {
     title: "Next.js",
-    level: 80,
+    level: 50,
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
   },
   {
@@ -145,7 +145,7 @@ const skills = [
   },
   {
     title: "Blender",
-    level: 40,
+    level: 20,
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/blender/blender-original.svg",
   },
 ];

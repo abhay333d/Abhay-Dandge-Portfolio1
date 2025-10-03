@@ -1,16 +1,6 @@
-import {
-  ContactShadows,
-  Environment,
-  Float,
-  MeshDistortMaterial,
-  OrbitControls,
-  Sky,
-  Sparkles,
-  useScroll,
-} from "@react-three/drei";
+import { Environment, Sky, Sparkles, useScroll } from "@react-three/drei";
 import React, { useEffect, useState, useRef } from "react";
 import { Avatar3 } from "../assets/Avatar3.jsx";
-import { useControls } from "leva";
 import { Castle } from "../assets/Castle.jsx";
 import { motion } from "framer-motion-3d";
 import { useFrame, useThree } from "@react-three/fiber";
@@ -25,7 +15,7 @@ const Experience = (props) => {
   const data = useScroll();
 
   const isMobile = window.innerWidth < 768;
-  const responsiveRatio = viewport.width / 12;
+  // const responsiveRatio = viewport.width / 12;
 
   const [section, setSection] = useState(0);
 
