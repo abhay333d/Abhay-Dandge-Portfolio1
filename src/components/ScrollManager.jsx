@@ -14,7 +14,7 @@ const ScrollManager = (props) => {
 
   
 
-  useEffect(() => {
+  useEffect(() => { 
     gsap.to(data.el, {
       duration: 1,
       scrollTop: section * data.el.clientHeight,

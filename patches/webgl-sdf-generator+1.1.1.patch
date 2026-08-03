@@ -1,0 +1,22 @@
+diff --git a/node_modules/webgl-sdf-generator/dist/webgl-sdf-generator.mjs b/node_modules/webgl-sdf-generator/dist/webgl-sdf-generator.mjs
+index a71414a..1dba8a7 100644
+--- a/node_modules/webgl-sdf-generator/dist/webgl-sdf-generator.mjs
++++ b/node_modules/webgl-sdf-generator/dist/webgl-sdf-generator.mjs
+@@ -147,7 +147,7 @@ var exports = (function (exports) {
+    * @param { ({gl, getExtension, withProgram, withTexture, withTextureFramebuffer, handleContextLoss}) => void } callback
+    */
+   function withWebGLContext (glOrCanvas, callback) {
+-    var gl = glOrCanvas.getContext ? glOrCanvas.getContext('webgl', glContextParams) : glOrCanvas;
++    var gl = glOrCanvas.getContext ? (glOrCanvas.getContext('webgl2', glContextParams) || glOrCanvas.getContext('webgl', glContextParams)) : glOrCanvas;
+     var wrapper = cache.get(gl);
+     if (!wrapper) {
+       var isWebGL2 = typeof WebGL2RenderingContext !== 'undefined' && gl instanceof WebGL2RenderingContext;
+@@ -520,7 +520,7 @@ var exports = (function (exports) {
+         if (!canvas) {
+           throw new Error('OffscreenCanvas or DOM canvas not supported')
+         }
+-        glOrCanvas = implicitContext = canvas.getContext('webgl', { depth: false });
++        glOrCanvas = implicitContext = canvas.getContext('webgl2', { depth: false }) || canvas.getContext('webgl', { depth: false });
+       }
+     }
+ 
